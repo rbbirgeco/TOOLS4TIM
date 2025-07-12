@@ -84,7 +84,7 @@ Each user gets their own AI assistant that learns:
 - **Coding Preferences**: Vanilla Java vs React+Vite, directory layouts, organization patterns
 - **Individual Workflow**: Which agent combinations work best for specific users
 - **Continuous Learning**: What causes code reversions vs successful implementations
-- **Privacy-First**: Local data collection for individualized training only
+- **Privacy-First**: Local data collection for individualized training only, unless you opt in to earn for NetworkTokens by sharing your data anonymously. 
 
 #### Global Knowledge Network
 - **Anonymous Data Sharing**: Optional rewards program for contributing to global database

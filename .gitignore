@@ -18,8 +18,15 @@ var/
 wheels/
 *.egg-info/
 .installed.cfg
-*.egg
-MANIFEST
+
+# Model files (hosted on network, not in repo)
+*.gguf
+*.bin
+*.safetensors
+*.ggml
+LLM_Mesh/models/
+models/
+node_modules/
 
 # Virtual environments
 venv/
