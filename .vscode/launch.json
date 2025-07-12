@@ -1,0 +1,46 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run REST API (Neural Assistant)",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/rest_api.py",
+      "console": "integratedTerminal",
+      "args": [],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Test Admin Dispatcher",
+      "type": "python", 
+      "request": "launch",
+      "program": "${workspaceFolder}/AdministrativeMesh/admin_dispatcher.py",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Bootstrap Workspace",
+      "type": "python",
+      "request": "launch", 
+      "program": "${workspaceFolder}/NeuralCodingAssistant/scaffold.py",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Test Worker (Fixer)",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/NeuralCodingAssistant/workers/fixer_worker.py", 
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    }
+  ]
+}

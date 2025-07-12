@@ -1,0 +1,88 @@
+{
+  "context_mappings": {
+    "debug": {
+      "keywords": ["error", "exception", "traceback", "bug", "failure"],
+      "memory_sources": ["error_patterns", "debugging_history", "fix_templates"],
+      "context_priority": ["recent_errors", "similar_patterns", "successful_fixes"],
+      "window_tier": 2
+    },
+    "analyze": {
+      "keywords": ["review", "inspect", "understand", "examine", "assess"],
+      "memory_sources": ["code_patterns", "architecture_context", "component_relationships"],
+      "context_priority": ["component_docs", "architecture_diagrams", "dependency_maps"],
+      "window_tier": 3
+    },
+    "fix": {
+      "keywords": ["repair", "correct", "implement", "modify", "update"],
+      "memory_sources": ["fix_history", "code_templates", "implementation_patterns"],
+      "context_priority": ["working_solutions", "tested_patterns", "verified_fixes"],
+      "window_tier": 2
+    },
+    "clean": {
+      "keywords": ["cleanup", "optimize", "refactor", "organize", "simplify"],
+      "memory_sources": ["cleanup_patterns", "optimization_rules", "refactoring_guides"],
+      "context_priority": ["cleanup_rules", "optimization_patterns", "style_guides"],
+      "window_tier": 1
+    },
+    "fix_helper": {
+      "keywords": ["merge", "patch", "apply", "integrate", "combine"],
+      "memory_sources": ["merge_strategies", "patch_patterns", "integration_rules"],
+      "context_priority": ["merge_conflicts", "patch_success", "integration_patterns"],
+      "window_tier": 2
+    }
+  },
+  "metadata_index": {
+    "task_frequency": {
+      "debug": 0.4,
+      "fix": 0.3,
+      "analyze": 0.15,
+      "clean": 0.1,
+      "fix_helper": 0.05
+    },
+    "success_rates": {
+      "debug": 0.85,
+      "fix": 0.78,
+      "analyze": 0.92,
+      "clean": 0.88,
+      "fix_helper": 0.82
+    },
+    "avg_context_size": {
+      "debug": 1024,
+      "fix": 2048,
+      "analyze": 4096,
+      "clean": 512,
+      "fix_helper": 1536
+    },
+    "worker_assignments": {
+      "debug": "starcoder2-15b (GGUF)",
+      "analyze": "deepseek-coder-6.7b-instruct (GGUF)", 
+      "fix": "codellama-7b-instruct (GGUF)",
+      "clean": "mistral-7b-instruct-v0.2 (GGUF)",
+      "fix_helper": "wizardcoder-python-13b (GGUF)",
+      "refactor": "wizardcoder-python-34b (GGUF)"
+    }
+  },
+  "learning_patterns": {
+    "error_clustering": "Group similar errors for pattern recognition",
+    "fix_effectiveness": "Track success rates of different fix strategies",
+    "context_relevance": "Measure which context improves outcomes",
+    "worker_performance": "Monitor individual worker success metrics"
+  },
+  "context_expansion_rules": {
+    "tier_1": {
+      "max_tokens": 512,
+      "sources": ["immediate_context", "error_message"],
+      "use_cases": ["simple_fixes", "cleanup_tasks"]
+    },
+    "tier_2": {
+      "max_tokens": 2048,
+      "sources": ["function_context", "related_code", "error_history"],
+      "use_cases": ["debugging", "standard_fixes"]
+    },
+    "tier_3": {
+      "max_tokens": 8192,
+      "sources": ["full_component", "architecture_docs", "dependency_analysis"],
+      "use_cases": ["complex_analysis", "architectural_changes"]
+    }
+  }
+}

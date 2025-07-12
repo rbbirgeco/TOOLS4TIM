@@ -1,0 +1,73 @@
+{
+  "ui_components": {
+    "continue_integration": {
+      "type": "extension_interface",
+      "description": "Custom model configuration for Continue extension",
+      "schema": {
+        "title": "Neural Assistant",
+        "provider": "custom", 
+        "apiBaseUrl": "http://localhost:8080",
+        "model": "neural-orchestrator"
+      },
+      "interaction_patterns": [
+        "Chat-based code assistance",
+        "Inline code suggestions",
+        "Error debugging workflows",
+        "Code refactoring assistance"
+      ]
+    },
+    "rest_api_interface": {
+      "type": "api_endpoint",
+      "description": "OpenAI-compatible REST interface",
+      "endpoints": {
+        "/v1/chat/completions": {
+          "method": "POST",
+          "input": "OpenAI message format",
+          "output": "Structured assistant response",
+          "streaming": "Optional Server-Sent Events"
+        }
+      }
+    },
+    "administrative_console": {
+      "type": "monitoring_interface",
+      "description": "Task lifecycle and system monitoring",
+      "components": [
+        "Task execution logs",
+        "Worker performance metrics", 
+        "Memory usage statistics",
+        "Error tracking and debugging"
+      ]
+    }
+  },
+  "data_flow_components": {
+    "input_processing": {
+      "components": ["task_parser", "context_slicer", "memory_expander"],
+      "description": "Transform user input into executable task format"
+    },
+    "execution_coordination": {
+      "components": ["admin_dispatcher", "mesh_manager", "worker_pool"],
+      "description": "Route and execute tasks through appropriate workers"
+    },
+    "output_aggregation": {
+      "components": ["result_formatter", "response_builder", "error_handler"],
+      "description": "Combine worker outputs into coherent responses"
+    },
+    "memory_management": {
+      "components": ["context_map", "lifecycle_logger", "learning_updater"],
+      "description": "Maintain persistent context and learning"
+    }
+  },
+  "component_interfaces": {
+    "async_boundaries": [
+      "REST API ↔ Administrative Mesh",
+      "Admin Dispatcher ↔ Mesh Manager", 
+      "Mesh Manager ↔ Worker Subprocesses",
+      "Workers ↔ Model Inference"
+    ],
+    "synchronous_boundaries": [
+      "Function Courier ↔ Signature Parser",
+      "Memory Components ↔ Context Injection",
+      "PyTorch Workers ↔ Model Execution"
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "project_name": "Neural Coding Assistant",
+  "architecture_type": "Distributed AI Mesh",
+  "components": {
+    "administrative_mesh": {
+      "description": "Council-based task routing and execution management",
+      "admin_models": ["llama3_70b", "deepseek_67b", "qwen_72b"],
+      "responsibilities": ["task_classification", "model_selection", "context_injection", "execution_dispatch"]
+    },
+    "function_courier": {
+      "description": "Zero-copy shared memory calls with verified function signatures",
+      "purpose": "Eliminate hallucination through predefined function interfaces",
+      "functions": ["debug", "analyze", "fix", "clean", "fix_helper"]
+    },
+    "workers_mesh": {
+      "description": "Specialized GGUF model workers for specific coding tasks",
+      "technologies": {
+        "gguf_models": ["starcoder2-15b", "deepseek-coder-6.7b-instruct", "codellama-7b-instruct", "wizardcoder-python-13b", "wizardcoder-python-34b", "mistral-7b-instruct-v0.2"],
+        "inference_engine": "llama-cpp-python"
+      }
+    },
+    "llm_mesh": {
+      "description": "GGUF/GGML model management and inference",
+      "administrative_models": {
+        "llama-2-70b-chat": "Large context administrative decisions",
+        "deepseek-llm-67b-chat": "Deep reasoning and analysis", 
+        "qwen1.5-72b-chat": "Tool usage and debugging coordination"
+      },
+      "worker_models": {
+        "starcoder2-15b": "Code debugging and analysis",
+        "deepseek-coder-6.7b-instruct": "Deep code analysis",
+        "codellama-7b-instruct": "Code fixing and generation",
+        "wizardcoder-python-13b": "Python-specific tasks",
+        "wizardcoder-python-34b": "Advanced refactoring",
+        "mistral-7b-instruct-v0.2": "Code cleanup and optimization"
+      },
+      "inference_engine": "llama-cpp-python with GGUF support"
+    },
+    "agent_memory": {
+      "description": "Persistent context and learning storage",
+      "components": ["architecture", "roadmap", "components", "context_map"]
+    }
+  },
+  "data_flow": {
+    "1": "User prompt → Administrative Mesh",
+    "2": "Task classification and admin selection",
+    "3": "Context injection and memory expansion", 
+    "4": "Function signature lookup via Courier",
+    "5": "Worker dispatch via async subprocess",
+    "6": "Result aggregation and response",
+    "7": "Lifecycle logging and memory update"
+  },
+  "integration": {
+    "vs_code": "Continue fork with custom REST endpoint",
+    "api": "OpenAI-compatible /v1/chat/completions",
+    "deployment": "FastAPI with Docker containerization"
+  }
+}

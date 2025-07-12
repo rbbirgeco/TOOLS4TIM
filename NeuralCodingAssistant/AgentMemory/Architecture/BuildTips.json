@@ -1,0 +1,42 @@
+{
+  "successful_implementations": {
+    "async_subprocess_integration": {
+      "pattern": "asyncio.create_subprocess_exec for Wolfram workers",
+      "success_factors": ["proper stdout/stderr capture", "error handling", "timeout management"],
+      "code_example": "proc = await asyncio.create_subprocess_exec('wolfram', '-code', args)"
+    },
+    "function_signature_parsing": {
+      "pattern": "Regex-based markdown parsing for Function_Courier.md",
+      "success_factors": ["consistent markdown format", "error handling for missing functions"],
+      "code_example": "pattern = rf'## {task_type}\\n```python\\n(.*?)```'"
+    },
+    "rest_api_compatibility": {
+      "pattern": "OpenAI-compatible endpoint structure",
+      "success_factors": ["proper message format", "usage statistics", "error responses"],
+      "code_example": "{'choices': [{'message': {'role': 'assistant', 'content': result}}]}"
+    },
+    "memory_context_injection": {
+      "pattern": "Tiered memory expansion based on task complexity",
+      "success_factors": ["context window management", "relevant content filtering"],
+      "code_example": "compressed_context = expand_memory(raw_context, task['window_tier'])"
+    },
+    "worker_error_handling": {
+      "pattern": "Graceful fallback and error logging",
+      "success_factors": ["subprocess error capture", "model fallback chains"],
+      "code_example": "return f'[ERROR]: {stderr.decode().strip()}' if proc.returncode != 0"
+    }
+  },
+  "debugging_loops_resolved": {
+    "import_path_issues": "Use absolute imports and proper module structure",
+    "async_deadlocks": "Avoid mixing sync/async calls in the same context",
+    "memory_leaks": "Proper subprocess cleanup and context manager usage",
+    "model_loading": "Cache models at module level, not per-request",
+    "json_parsing": "Robust error handling for malformed JSON responses"
+  },
+  "performance_optimizations": {
+    "model_caching": "Load PyTorch models once at startup",
+    "context_preloading": "Cache frequently accessed memory components",
+    "subprocess_pooling": "Reuse Wolfram processes where possible",
+    "response_streaming": "Use FastAPI StreamingResponse for large outputs"
+  }
+}

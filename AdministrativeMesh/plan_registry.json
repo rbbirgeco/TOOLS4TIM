@@ -1,0 +1,7 @@
+{
+  "task_123456789": {
+    "admin": "qwen_72b",
+    "steps": ["analyze", "fix", "clean"],
+    "status": "in_progress"
+  }
+}

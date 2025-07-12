@@ -1,0 +1,35 @@
+{
+  "system_diagram": {
+    "title": "Neural Coding Assistant Signal Flow",
+    "layers": {
+      "presentation": {
+        "components": ["VS Code", "Continue Extension", "REST API"],
+        "flow": "User Input → Continue → REST /v1/chat/completions"
+      },
+      "coordination": {
+        "components": ["Administrative Mesh", "Function Courier", "Task Parser"],
+        "flow": "Prompt → Classification → Admin Selection → Function Lookup"
+      },
+      "execution": {
+        "components": ["Mesh Manager", "Workers", "Models"],
+        "flow": "Async Dispatch → Worker Selection → Model Execution → Result"
+      },
+      "persistence": {
+        "components": ["Agent Memory", "Context Map", "Lifecycle Log"],
+        "flow": "Context Injection ← Memory Storage → Learning Updates"
+      }
+    },
+    "signal_paths": {
+      "debug_flow": "Error → Debugger Worker (Wolfram) → Analyzer Worker (Wolfram) → Fixer Worker (PyTorch) → Cleaner (Wolfram)",
+      "memory_flow": "Context Map → Attention Router → Memory Expander → Task Payload",
+      "admin_flow": "Task Type → Council Router → Model Selection → Execution Dispatch",
+      "response_flow": "Worker Output → Admin Aggregation → REST Response → Continue UI"
+    },
+    "async_patterns": {
+      "subprocess": "Wolfram workers via asyncio.create_subprocess_exec",
+      "pytorch": "Direct Python function calls within event loop",
+      "streaming": "Optional FastAPI StreamingResponse for real-time updates",
+      "background": "Non-blocking execution with terminal output capture"
+    }
+  }
+}

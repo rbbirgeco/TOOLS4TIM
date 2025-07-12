@@ -1,0 +1,39 @@
+{
+  "models": [
+    {
+      "title": "Neural Assistant",
+      "provider": "custom",
+      "apiBaseUrl": "http://localhost:8080",
+      "model": "neural-orchestrator"
+    },
+    {
+      "title": "Function Courier",
+      "provider": "custom", 
+      "apiBaseUrl": "http://localhost:8080",
+      "model": "function-courier"
+    },
+    {
+      "title": "Mesh Commander",
+      "provider": "custom",
+      "apiBaseUrl": "http://localhost:8080", 
+      "model": "mesh-commander"
+    }
+  ],
+  "customCommands": [
+    {
+      "name": "Debug Code",
+      "prompt": "Debug this code and fix any errors: {{{ input }}}",
+      "description": "Analyze and fix code errors using the Neural Assistant"
+    },
+    {
+      "name": "Analyze Component",
+      "prompt": "Analyze this code component and provide insights: {{{ input }}}",
+      "description": "Deep analysis of code components"
+    },
+    {
+      "name": "Clean Codebase",
+      "prompt": "Clean and optimize this code: {{{ input }}}",
+      "description": "Remove dead code and optimize structure"
+    }
+  ]
+}
