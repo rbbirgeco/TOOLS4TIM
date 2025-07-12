@@ -39,6 +39,36 @@ print('✅ Core dependencies working!')
 print('🚀 System ready to run in fallback mode')
 "
 
+# Test our improved task classification
+echo "🔍 Testing enhanced task classification..."
+python -c "
+import sys
+import os
+sys.path.append(os.getcwd())
+
+from AdministrativeMesh.task_parser import parse_task
+
+# Test various task types
+test_prompts = [
+    ('Fix this error in my code', 'debug'),
+    ('Analyze this function', 'analyze'),
+    ('Clean up this messy code', 'clean'),
+    ('Refactor this module', 'refactor')
+]
+
+for prompt, expected in test_prompts:
+    result = parse_task(prompt)
+    actual = result['type']
+    status = '✅' if actual == expected else '❌'
+    print(f'{status} \"{prompt[:30]}...\" -> {actual} (expected {expected})')
+
+print('🎯 Task classification system working!')
+"
+
+# Run comprehensive tests
+echo "🔬 Running comprehensive tests..."
+python test_comprehensive.py
+
 echo ""
 echo "✅ Basic setup complete!"
 echo "💡 You can now run: source venv/bin/activate && python rest_api.py"

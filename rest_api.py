@@ -1,16 +1,36 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import asyncio
 import sys
 import os
+import logging
 
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from AdministrativeMesh.admin_dispatcher import dispatch
+from error_handling import handle_errors, with_timeout_and_retry, RetryConfig
 
-app = FastAPI(title="Neural Coding Assistant API", version="1.0.0")
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+app = FastAPI(
+    title="Neural Coding Assistant API", 
+    version="1.0.0",
+    description="AI-powered coding assistance with mesh architecture"
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class ChatPayload(BaseModel):
     messages: list
@@ -19,11 +39,24 @@ class ChatPayload(BaseModel):
     stream: bool = False
 
 @app.post("/v1/chat/completions")
+@handle_errors("[ERROR]: Chat completion failed")
 async def route_chat(payload: ChatPayload):
-    """OpenAI-compatible chat completions endpoint."""
+    """OpenAI-compatible chat completions endpoint with enhanced error handling."""
     try:
+        if not payload.messages or len(payload.messages) == 0:
+            raise HTTPException(status_code=400, detail="No messages provided")
+        
         prompt = payload.messages[-1]["content"]
-        result = await dispatch(prompt)
+        if not prompt or not prompt.strip():
+            raise HTTPException(status_code=400, detail="Empty prompt provided")
+        
+        # Use retry logic for dispatch
+        retry_config = RetryConfig(max_retries=2, timeout=30.0)
+        result = await with_timeout_and_retry(
+            dispatch,
+            prompt,
+            retry_config=retry_config
+        )
         
         if payload.stream:
             return StreamingResponse(
@@ -50,14 +83,12 @@ async def route_chat(payload: ChatPayload):
             "object": "chat.completion",
             "created": int(asyncio.get_event_loop().time())
         }
+        
+    except HTTPException:
+        raise
     except Exception as e:
-        return {
-            "error": {
-                "message": f"Internal server error: {str(e)}",
-                "type": "internal_error",
-                "code": 500
-            }
-        }
+        logger.error(f"Chat completion error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 async def event_stream(result: str):
     """Stream response for real-time updates."""
@@ -91,16 +122,24 @@ async def event_stream(result: str):
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "service": "Neural Coding Assistant"}
-
-@app.get("/")
-async def root():
-    """Root endpoint with service info."""
     return {
-        "service": "Neural Coding Assistant",
+        "status": "healthy",
         "version": "1.0.0",
-        "endpoints": ["/v1/chat/completions", "/health"],
-        "description": "AI-powered coding assistant with administrative mesh architecture"
+        "timestamp": int(asyncio.get_event_loop().time())
+    }
+
+@app.get("/models")
+async def list_models():
+    """List available models."""
+    return {
+        "object": "list",
+        "data": [
+            {"id": "neural-coding-assistant", "object": "model", "owned_by": "neural-coding"},
+            {"id": "debug-specialist", "object": "model", "owned_by": "neural-coding"},
+            {"id": "analyzer", "object": "model", "owned_by": "neural-coding"},
+            {"id": "code-fixer", "object": "model", "owned_by": "neural-coding"},
+            {"id": "code-cleaner", "object": "model", "owned_by": "neural-coding"}
+        ]
     }
 
 if __name__ == "__main__":
